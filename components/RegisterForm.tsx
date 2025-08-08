@@ -12,11 +12,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { setCookie } from "../lib/setCookie";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { CheckIcon, Eye, EyeOff, Loader, LockIcon, LogInIcon, Mail, XIcon } from "lucide-react";
+import { CheckIcon, Eye, EyeOff, GraduationCap, Loader, LockIcon, LogInIcon, Mail, User, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const registerSchema = z.object({
     email: z.string().email({ message: "E-mail inválido" }),
+    name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres" }),
     role: z.enum(["VIEWER"], { message: "Função inválida" }),
     password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
     confirmPassword: z.string().min(6, { message: "A confirmação de senha deve ter pelo menos 6 caracteres" }),
@@ -155,14 +156,45 @@ export default function RegisterForm() {
                                     <FormControl>
                                         <div className='relative'>
                                             <div className='absolute left-3 top-1/2 -translate-y-1/2 transform text-muted-foreground'>
-                                                <Mail size={16} />
+                                                <GraduationCap size={16} />
                                             </div>
                                             <Input
                                                 id='role'
                                                 type='text'
                                                 readOnly
+                                                disabled
                                                 {...field}
                                                 value={field.value}
+                                                className='border-muted bg-muted/40 pl-8 focus-visible:ring-secondary'
+                                            />
+
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        
+
+                        <FormField
+                            control={form.control}
+                            name='name'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className='text-sm font-medium text-foreground'>
+                                        Nome
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className='relative'>
+                                            <div className='absolute left-3 top-1/2 -translate-y-1/2 transform text-muted-foreground'>
+                                                <User size={16} />
+                                            </div>
+                                            <Input
+                                                id='user'
+                                                type='text'
+                                                placeholder='Digite seu nome'
+                                                {...field}
                                                 className='border-muted bg-muted/40 pl-8 focus-visible:ring-secondary'
                                             />
 
@@ -189,7 +221,7 @@ export default function RegisterForm() {
                                             <Input
                                                 id='user'
                                                 type='text'
-                                                placeholder='Digite seu ID de usuário'
+                                                placeholder='Digite seu email'
                                                 {...field}
                                                 className='border-muted bg-muted/40 pl-8 focus-visible:ring-secondary'
                                             />
