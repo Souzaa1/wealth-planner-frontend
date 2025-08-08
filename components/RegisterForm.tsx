@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 
 const registerSchema = z.object({
     email: z.string().email({ message: "E-mail inválido" }),
+    role: z.enum(["VIEWER"], { message: "Função inválida" }),
     password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
     confirmPassword: z.string().min(6, { message: "A confirmação de senha deve ter pelo menos 6 caracteres" }),
 }).refine(
@@ -51,6 +52,7 @@ export default function RegisterForm() {
         resolver: zodResolver(registerSchema),
         defaultValues: {
             email: "",
+            role: "VIEWER",
             password: "",
             confirmPassword: "",
         },
@@ -61,8 +63,12 @@ export default function RegisterForm() {
         setSuccess("");
         setLoading(true);
         try {
-            const res = await axios.post("http://localhost:4000/api/v1/auth/register", values);
-            setCookie("token", res.data.token, 7);
+            const res = await axios.post("http://localhost:4000/api/v1/auth/register", {
+                email: values.email,
+                role: values.role,
+                password: values.password,
+            });
+            setCookie("token", res.data.data.token, 7);
             setSuccess("Cadastro realizado com sucesso!");
             router.push("/login");
         } catch (err: unknown) {
@@ -137,6 +143,35 @@ export default function RegisterForm() {
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="space-y-4"
                     >
+
+                        <FormField
+                            control={form.control}
+                            name='role'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className='text-sm font-medium text-foreground'>
+                                        Função
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className='relative'>
+                                            <div className='absolute left-3 top-1/2 -translate-y-1/2 transform text-muted-foreground'>
+                                                <Mail size={16} />
+                                            </div>
+                                            <Input
+                                                id='role'
+                                                type='text'
+                                                readOnly
+                                                {...field}
+                                                value={field.value}
+                                                className='border-muted bg-muted/40 pl-8 focus-visible:ring-secondary'
+                                            />
+
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
                         <FormField
                             control={form.control}
@@ -319,12 +354,12 @@ export default function RegisterForm() {
                             {loading ? (
                                 <div className='flex items-center gap-2 text-white'>
                                     <Loader className='size-4 animate-spin' />
-                                    <span>Autenticando...</span>
+                                    <span>Registrando...</span>
                                 </div>
                             ) : (
                                 <div className='flex items-center gap-2 text-white'>
                                     <LogInIcon className='size-4' />
-                                    <span>Entrar</span>
+                                    <span>Registrar</span>
                                 </div>
                             )}
                         </Button>

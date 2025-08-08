@@ -37,7 +37,7 @@ export default function LoginForm() {
         setLoading(true);
         try {
             const res = await axios.post("http://localhost:4000/api/v1/auth/login", values);
-            setCookie("token", res.data.token, 7);
+            setCookie("token", res.data.data.token, 7);
             router.push("/dashboard");
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
