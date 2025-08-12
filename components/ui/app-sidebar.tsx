@@ -32,7 +32,7 @@ const data = {
     },
     navMain: [
         {
-            url: "#",
+            url: "/clientes",
             title: "Clientes",
             isActive: true,
             icon: User,
@@ -41,16 +41,16 @@ const data = {
                     title: "Dashboard",
                     icon: LayoutDashboard,
                     isActive: true,
-                    url: "#",
+                    url: "/clientes/dashboard",
                 },
                 {
                     title: "Projeção",
-                    url: "#",
+                    url: "/clientes/projecao",
                     icon: ChartLine,
                 },
                 {
                     title: "Histórico",
-                    url: "#",
+                    url: "/clientes/historico",
                     icon: ClockFading,
                 }
             ]

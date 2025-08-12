@@ -12,8 +12,8 @@ export interface ClientProps {
     age: number;
     isActive: boolean;
     familyProfile: string;
-    createDate: Date;
-    updateDate: Date;
+    updatedAt: Date;
+    createdAt: Date;
     goals: GoalProps[];
     wallets: WalletProps[];
     events: EventProps[];

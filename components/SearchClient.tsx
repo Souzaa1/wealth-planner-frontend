@@ -29,8 +29,8 @@ const SearchClient = ({ onSelect, clients, selectedClient, setSelectedClient }: 
                     </SelectTrigger>
                     <SelectContent>
                         {clients.map((client) => (
-                            <SelectItem key={client.id} value={client.id}>
-                                {client.name} ({client.email})
+                            <SelectItem key={client.id} value={client.id} className="capitalize">
+                                {client.name}
                             </SelectItem>
                         ))}
                     </SelectContent>
