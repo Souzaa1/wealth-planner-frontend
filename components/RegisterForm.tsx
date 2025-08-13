@@ -114,7 +114,7 @@ export default function RegisterForm() {
 
 
     return (
-        <Card className='relative z-10 h-auto w-full max-w-[380px] overflow-hidden border-0 bg-card/90 shadow-2xl backdrop-blur-sm'>
+        <Card className='relative z-10 h-auto w-full max-w-[380px] overflow-hidden border-0 bg-card border shadow/90 shadow-2xl backdrop-blur-sm'>
             <div className='animate-rgb absolute top-0 h-2 w-full rounded-t-lg bg-gradient-to-r from-primary via-orange-500 to-primary bg-[length:200%_100%]'></div>
 
 
@@ -175,7 +175,7 @@ export default function RegisterForm() {
                             )}
                         />
 
-                        
+
 
                         <FormField
                             control={form.control}
