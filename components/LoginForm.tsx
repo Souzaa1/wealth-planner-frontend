@@ -38,7 +38,7 @@ export default function LoginForm() {
         try {
             const res = await axios.post("http://localhost:4000/api/v1/auth/login", values);
             setCookie("token", res.data.data.token, 7);
-            router.push("/dashboard");
+            router.push("/clientes");
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data?.message || "Erro ao fazer login");
